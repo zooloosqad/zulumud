@@ -95,7 +95,7 @@ ACMD(do_echo)
   skip_spaces(&argument);
 
   if (!*argument)
-    send_to_char(ch, "Yes.. but what?\r\n");
+    send_to_char(ch, "Echo what?\r\n");
   else {
     char buf[MAX_INPUT_LENGTH + 4];
 
@@ -275,7 +275,7 @@ ACMD(do_trans)
     if (!(victim = get_char_vis(ch, buf, NULL, FIND_CHAR_WORLD)))
       send_to_char(ch, "%s", CONFIG_NOPERSON);
     else if (victim == ch)
-      send_to_char(ch, "That doesn't make much sense, does it?\r\n");
+      send_to_char(ch, "You cannot transfer yourself.\r\n");
     else {
       if ((GET_LEVEL(ch) < GET_LEVEL(victim)) && !IS_NPC(victim)) {
 	send_to_char(ch, "Go transfer someone your own size.\r\n");
@@ -1155,7 +1155,7 @@ ACMD(do_snoop)
   else if (victim->desc->snoop_by)
     send_to_char(ch, "Busy already. \r\n");
   else if (victim->desc->snooping == ch->desc)
-    send_to_char(ch, "Don't be stupid.\r\n");
+    send_to_char(ch, "You cannot snoop yourself.\r\n");
   else {
     if (victim->desc->original)
       tch = victim->desc->original;
@@ -1193,7 +1193,7 @@ ACMD(do_switch)
   else if (!(victim = get_char_vis(ch, arg, NULL, FIND_CHAR_WORLD)))
     send_to_char(ch, "No such character.\r\n");
   else if (ch == victim)
-    send_to_char(ch, "Hee hee... we are jolly funny today, eh?\r\n");
+    send_to_char(ch, "You cannot switch with yourself.\r\n");
   else if (victim->desc)
     send_to_char(ch, "You can't do that, the body is already in use!\r\n");
   else if ((GET_LEVEL(ch) < LVL_IMPL) && !IS_NPC(victim))
@@ -1412,7 +1412,7 @@ ACMD(do_purge)
   one_argument(argument, buf);
 
   if (GET_LEVEL(ch) < LVL_GRGOD && !can_edit_zone(ch, world[IN_ROOM(ch)].zone)) {
-	send_to_char(ch, "Sorry, you can't purge anything here.\r\n");
+	send_to_char(ch, "You can't purge anything here.\r\n");
 	return;
   }
 
@@ -1669,7 +1669,7 @@ ACMD(do_gecho)
   delete_doubledollar(argument);
 
   if (!*argument)
-    send_to_char(ch, "That must be a mistake...\r\n");
+    send_to_char(ch, "Gecho what?\r\n");
   else {
     for (pt = descriptor_list; pt; pt = pt->next)
       if (IS_PLAYING(pt) && pt->character && pt->character != ch)
@@ -2320,7 +2320,7 @@ ACMD(do_wizutil)
       break;
     case SCMD_FREEZE:
       if (ch == vict) {
-	send_to_char(ch, "Oh, yeah, THAT'S real smart...\r\n");
+	send_to_char(ch, "You cannot freeze yourself.\r\n");
 	return;
       }
       if (PLR_FLAGGED(vict, PLR_FROZEN)) {

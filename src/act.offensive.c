@@ -27,7 +27,7 @@ ACMD(do_assist)
   struct char_data *helpee, *opponent;
 
   if (FIGHTING(ch)) {
-    send_to_char(ch, "You're already fighting!  How can you assist someone else?\r\n");
+    send_to_char(ch, "You cannot assist while fighting.\r\n");
     return;
   }
   one_argument(argument, arg);
@@ -37,7 +37,7 @@ ACMD(do_assist)
   else if (!(helpee = get_char_vis(ch, arg, NULL, FIND_CHAR_ROOM)))
     send_to_char(ch, "%s", CONFIG_NOPERSON);
   else if (helpee == ch)
-    send_to_char(ch, "You can't help yourself any more than this!\r\n");
+    send_to_char(ch, "You cannot assist yourself.\r\n");
   else {
     /*
      * Hit the same enemy the person you're helping is.
@@ -112,9 +112,9 @@ ACMD(do_kill)
     if (!(vict = get_char_vis(ch, arg, NULL, FIND_CHAR_ROOM)))
       send_to_char(ch, "They aren't here.\r\n");
     else if (ch == vict)
-      send_to_char(ch, "Your mother would be so sad.. :(\r\n");
+      send_to_char(ch, "You cannot commit suicide.\r\n");
     else {
-      act("You chop $M to pieces!  Ah!  The blood!", FALSE, ch, 0, vict, TO_CHAR);
+      act("You chop $M to pieces!", FALSE, ch, 0, vict, TO_CHAR);
       act("$N chops you to pieces!", FALSE, vict, 0, ch, TO_CHAR);
       act("$n brutally slays $N!", FALSE, ch, 0, vict, TO_NOTVICT);
       raw_kill(vict, ch);
@@ -152,7 +152,7 @@ ACMD(do_backstab)
     return;
   }
   if (FIGHTING(vict)) {
-    send_to_char(ch, "You can't backstab a fighting person -- they're too alert!\r\n");
+    send_to_char(ch, "You can't backstab a fighting person.\r\n");
     return;
   }
 
@@ -189,7 +189,7 @@ ACMD(do_order)
   else if (!(vict = get_char_vis(ch, name, NULL, FIND_CHAR_ROOM)) && !is_abbrev(name, "followers"))
     send_to_char(ch, "That person isn't here.\r\n");
   else if (ch == vict)
-    send_to_char(ch, "You obviously suffer from skitzofrenia.\r\n");
+    send_to_char(ch, "You cannot order yourself.\r\n");
   else {
     if (AFF_FLAGGED(ch, AFF_CHARM)) {
       send_to_char(ch, "Your superior would not aprove of you giving orders.\r\n");
@@ -262,7 +262,7 @@ ACMD(do_flee)
       return;
     }
   }
-  send_to_char(ch, "PANIC!  You couldn't escape!\r\n");
+  send_to_char(ch, "You couldn't escape!\r\n");
 }
 
 ACMD(do_bash)
@@ -278,7 +278,7 @@ ACMD(do_bash)
     return;
   }
   if (ROOM_FLAGGED(IN_ROOM(ch), ROOM_PEACEFUL)) {
-    send_to_char(ch, "This room just has such a peaceful, easy feeling...\r\n");
+    send_to_char(ch, "This room just has such a peaceful, easy feeling.\r\n");
     return;
   }
   if (!GET_EQ(ch, WEAR_WIELD)) {
@@ -294,7 +294,7 @@ ACMD(do_bash)
     }
   }
   if (vict == ch) {
-    send_to_char(ch, "Aren't we funny today...\r\n");
+    send_to_char(ch, "You cannot bash yourself.\r\n");
     return;
   }
   if (MOB_FLAGGED(vict, MOB_NOKILL)) {
@@ -374,8 +374,8 @@ ACMD(do_rescue)
     send_to_char(ch, "You fail the rescue!\r\n");
     return;
   }
-  send_to_char(ch, "Banzai!  To the rescue...\r\n");
-  act("You are rescued by $N, you are confused!", FALSE, vict, 0, ch, TO_CHAR);
+  send_to_char(ch, "You rescue them!\r\n");
+  act("You are rescued by $N!", FALSE, vict, 0, ch, TO_CHAR);
   act("$n heroically rescues $N!", FALSE, ch, 0, vict, TO_NOTVICT);
 
   if (FIGHTING(vict) == tmp_ch)
@@ -505,7 +505,7 @@ ACMD(do_kick)
     }
   }
   if (vict == ch) {
-    send_to_char(ch, "Aren't we funny today...\r\n");
+    send_to_char(ch, "You cannot kick yourself.\r\n");
     return;
   }
   /* 101% is a complete failure */

@@ -122,7 +122,7 @@ ACMD(do_put)
     else if (GET_OBJ_TYPE(cont) != ITEM_CONTAINER)
       act("$p is not a container.", FALSE, ch, cont, 0, TO_CHAR);
     else if (OBJVAL_FLAGGED(cont, CONT_CLOSED) && (GET_LEVEL(ch) < LVL_IMMORT || !PRF_FLAGGED(ch, PRF_NOHASSLE)))
-      send_to_char(ch, "You'd better open it first!\r\n");
+      send_to_char(ch, "You need to open it first!\r\n");
     else {
       if (obj_dotmode == FIND_INDIV) {	/* put <obj> <container> */
 	if (!(obj = get_obj_in_list_vis(ch, theobj, NULL, ch->carrying)))
@@ -177,7 +177,7 @@ if (!IS_NPC(ch) && !PRF_FLAGGED(ch, PRF_NOHASSLE)) {
 }
   
   if (OBJ_SAT_IN_BY(obj)){
-    act("It appears someone is sitting on $p..", FALSE, ch, obj, 0, TO_CHAR);
+    act("It appears someone is sitting on $p.", FALSE, ch, obj, 0, TO_CHAR);
     return (0);
   }
   
@@ -396,7 +396,7 @@ static void perform_drop_gold(struct char_data *ch, int amount, byte mode, room_
   struct obj_data *obj;
 
   if (amount <= 0)
-    send_to_char(ch, "Heh heh heh.. we are jolly funny today, eh?\r\n");
+    send_to_char(ch, "You can't drop 0 or less.\r\n");
   else if (GET_GOLD(ch) < amount)
     send_to_char(ch, "You don't have that many coins!\r\n");
   else {
@@ -450,7 +450,7 @@ static int perform_drop(struct char_data *ch, struct obj_data *obj,
     return 0;
 
   if (OBJ_FLAGGED(obj, ITEM_NODROP) && !PRF_FLAGGED(ch, PRF_NOHASSLE)) {
-    snprintf(buf, sizeof(buf), "You can't %s $p, it must be CURSED!", sname);
+    snprintf(buf, sizeof(buf), "You can't %s $p, it must be cursed!", sname);
     act(buf, FALSE, ch, obj, 0, TO_CHAR);
     return (0);
   }
@@ -542,7 +542,7 @@ ACMD(do_drop)
     if (!str_cmp("coins", arg) || !str_cmp("coin", arg))
       perform_drop_gold(ch, multi, mode, RDR);
     else if (multi <= 0)
-      send_to_char(ch, "Yeah, that makes sense.\r\n");
+      send_to_char(ch, "Cannot be less than 1.\r\n");
     else if (!*arg)
       send_to_char(ch, "What do you want to %s %d of?\r\n", sname, multi);
     else if (!(obj = get_obj_in_list_vis(ch, arg, NULL, ch->carrying)))
@@ -560,9 +560,9 @@ ACMD(do_drop)
     /* Can't junk or donate all */
     if ((dotmode == FIND_ALL) && (subcmd == SCMD_JUNK || subcmd == SCMD_DONATE)) {
       if (subcmd == SCMD_JUNK)
-	send_to_char(ch, "Go to the dump if you want to junk EVERYTHING!\r\n");
+	send_to_char(ch, "Go to the dump if you want to junk everything!\r\n");
       else
-	send_to_char(ch, "Go do the donation room if you want to donate EVERYTHING!\r\n");
+	send_to_char(ch, "Go do the donation room if you want to donate everything!\r\n");
       return;
     }
     if (dotmode == FIND_ALL) {
@@ -654,7 +654,7 @@ static void perform_give_gold(struct char_data *ch, struct char_data *vict,
   char buf[MAX_STRING_LENGTH];
 
   if (amount <= 0) {
-    send_to_char(ch, "Heh heh heh ... we are jolly funny today, eh?\r\n");
+    send_to_char(ch, "Cannot be less than 1.\r\n");
     return;
   }
   if ((GET_GOLD(ch) < amount) && (IS_NPC(ch) || (GET_LEVEL(ch) < LVL_GOD))) {
@@ -929,7 +929,7 @@ ACMD(do_drink)
     send_to_char(ch, "You are full.\r\n");
 
   if (GET_OBJ_VAL(temp, 3) && GET_LEVEL(ch) < LVL_IMMORT) { /* The crap was poisoned ! */
-    send_to_char(ch, "Oops, it tasted rather strange!\r\n");
+    send_to_char(ch, "It tastes strange!\r\n");
     act("$n chokes and utters some strange sounds.", TRUE, ch, 0, 0, TO_ROOM);
 
     new_affect(&af);
@@ -1004,7 +1004,7 @@ ACMD(do_eat)
 
   if (GET_OBJ_VAL(food, 3) && (GET_LEVEL(ch) < LVL_IMMORT)) {
     /* The crap was poisoned ! */
-    send_to_char(ch, "Oops, that tasted rather strange!\r\n");
+    send_to_char(ch, "It tastes strange!\r\n");
     act("$n coughs and utters some strange sounds.", FALSE, ch, 0, 0, TO_ROOM);
 
     new_affect(&af);
@@ -1327,7 +1327,7 @@ int find_eq_pos(struct char_data *ch, struct obj_data *obj, char *arg)
     if (CAN_WEAR(obj, ITEM_WEAR_WAIST))       where = WEAR_WAIST;
     if (CAN_WEAR(obj, ITEM_WEAR_WRIST))       where = WEAR_WRIST_R;
   } else if ((where = search_block(arg, keywords, FALSE)) < 0)
-    send_to_char(ch, "'%s'?  What part of your body is THAT?\r\n", arg);
+    send_to_char(ch, "'%s'?  What part of your body is that?\r\n", arg);
 
   return (where);
 }
@@ -1456,7 +1456,7 @@ static void perform_remove(struct char_data *ch, int pos)
     /*  This error occurs when perform_remove() is passed a bad 'pos'
      *  (location) to remove an object from. */
   else if (OBJ_FLAGGED(obj, ITEM_NODROP) && !PRF_FLAGGED(ch, PRF_NOHASSLE))
-    act("You can't remove $p, it must be CURSED!", FALSE, ch, obj, 0, TO_CHAR);
+    act("You can't remove $p, it must be cursed!", FALSE, ch, obj, 0, TO_CHAR);
   else if (IS_CARRYING_N(ch) >= CAN_CARRY_N(ch)&& !PRF_FLAGGED(ch, PRF_NOHASSLE))
     act("$p: you can't carry that many items!", FALSE, ch, obj, 0, TO_CHAR);
   else {

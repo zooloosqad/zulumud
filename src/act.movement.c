@@ -595,7 +595,7 @@ static int ok_pick(struct char_data *ch, obj_vnum keynum, int pickproof, int scm
   skill_lvl = GET_SKILL(ch, SKILL_PICK_LOCK) + dex_app_skill[GET_DEX(ch)].p_locks;
 
   if (keynum == NOTHING)
-    send_to_char(ch, "Odd - you can't seem to find a keyhole.\r\n");
+    send_to_char(ch, "You can't seem to find a keyhole.\r\n");
   else if (pickproof)
     send_to_char(ch, "It resists your attempts to pick it.\r\n");
   else if (percent > skill_lvl)
@@ -651,7 +651,7 @@ ACMD(do_gen_door)
     else if (!DOOR_IS_CLOSED(ch, obj, door) && IS_SET(flags_door[subcmd], NEED_CLOSED))
       send_to_char(ch, "But it's currently open!\r\n");
     else if (!(DOOR_IS_LOCKED(ch, obj, door)) && IS_SET(flags_door[subcmd], NEED_LOCKED))
-      send_to_char(ch, "Oh.. it wasn't locked, after all..\r\n");
+      send_to_char(ch, "It wasn't locked, after all.\r\n");
     else if (!(DOOR_IS_UNLOCKED(ch, obj, door)) && IS_SET(flags_door[subcmd], NEED_UNLOCKED) && ((!IS_NPC(ch) && PRF_FLAGGED(ch, PRF_AUTOKEY))) && (has_key(ch, keynum)) )
     {
       send_to_char(ch, "It is locked, but you have the key.\r\n");
@@ -750,7 +750,7 @@ ACMD(do_stand)
     send_to_char(ch, "You have to wake up first!\r\n");
     break;
   case POS_FIGHTING:
-    send_to_char(ch, "Do you not consider fighting as standing?\r\n");
+    send_to_char(ch, "You are already standing.\r\n");
     break;
   default:
     send_to_char(ch, "You stop floating around, and put your feet on the ground.\r\n");
@@ -813,7 +813,7 @@ ACMD(do_sit)
     }
     break;
   case POS_SITTING:
-    send_to_char(ch, "You're sitting already.\r\n");
+    send_to_char(ch, "You're already sitting.\r\n");
     break;
   case POS_RESTING:
     send_to_char(ch, "You stop resting, and sit up.\r\n");
@@ -824,7 +824,7 @@ ACMD(do_sit)
     send_to_char(ch, "You have to wake up first.\r\n");
     break;
   case POS_FIGHTING:
-    send_to_char(ch, "Sit down while fighting? Are you MAD?\r\n");
+    send_to_char(ch, "You cannot sit while fighting.\r\n");
     break;
   default:
     send_to_char(ch, "You stop floating around, and sit down.\r\n");
@@ -854,7 +854,7 @@ ACMD(do_rest)
     send_to_char(ch, "You have to wake up first.\r\n");
     break;
   case POS_FIGHTING:
-    send_to_char(ch, "Rest while fighting?  Are you MAD?\r\n");
+    send_to_char(ch, "You cannot rest while fighting.\r\n");
     break;
   default:
     send_to_char(ch, "You stop floating around, and stop to rest your tired bones.\r\n");
@@ -878,7 +878,7 @@ ACMD(do_sleep)
     send_to_char(ch, "You are already sound asleep.\r\n");
     break;
   case POS_FIGHTING:
-    send_to_char(ch, "Sleep while fighting?  Are you MAD?\r\n");
+    send_to_char(ch, "You cannot sleep while fighting.\r\n");
     break;
   default:
     send_to_char(ch, "You stop floating around, and lie down to sleep.\r\n");
@@ -920,7 +920,7 @@ ACMD(do_wake)
   if (AFF_FLAGGED(ch, AFF_SLEEP))
     send_to_char(ch, "You can't wake up!\r\n");
   else if (GET_POS(ch) > POS_SLEEPING)
-    send_to_char(ch, "You are already awake...\r\n");
+    send_to_char(ch, "You are already awake.\r\n");
   else {
     send_to_char(ch, "You awaken, and sit up.\r\n");
     act("$n awakens.", TRUE, ch, 0, 0, TO_ROOM);

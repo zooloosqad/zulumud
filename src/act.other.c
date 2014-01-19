@@ -44,11 +44,11 @@ ACMD(do_quit)
     return;
 
   if (subcmd != SCMD_QUIT && GET_LEVEL(ch) < LVL_IMMORT)
-    send_to_char(ch, "You have to type quit--no less, to quit!\r\n");
+    send_to_char(ch, "You have to type quit to quit.\r\n");
   else if (GET_POS(ch) == POS_FIGHTING)
-    send_to_char(ch, "No way!  You're fighting for your life!\r\n");
+    send_to_char(ch, "You are in combat.\r\n");
   else if (GET_POS(ch) < POS_STUNNED) {
-    send_to_char(ch, "You die before your time...\r\n");
+    send_to_char(ch, "You die before your time.\r\n");
     die(ch, NULL);
   } else {
     act("$n has left the game.", TRUE, ch, 0, 0, TO_ROOM);
@@ -57,7 +57,7 @@ ACMD(do_quit)
     if (GET_QUEST_TIME(ch) != -1)
       quest_timeout(ch);
 
-    send_to_char(ch, "Goodbye, friend.. Come back soon!\r\n");
+    send_to_char(ch, "Goodbye.\r\n");
 
     /* We used to check here for duping attempts, but we may as well do it right
      * in extract_char(), since there is no check if a player rents out and it
@@ -70,7 +70,7 @@ ACMD(do_quit)
 
     /* Stop snooping so you can't see passwords during deletion or change. */
     if (ch->desc->snoop_by) {
-      write_to_output(ch->desc->snoop_by, "Your victim is no longer among us.\r\n");
+      write_to_output(ch->desc->snoop_by, "Your victim is no longer here.\r\n");
       ch->desc->snoop_by->snooping = NULL;
       ch->desc->snoop_by = NULL;
     }
@@ -108,7 +108,7 @@ ACMD(do_sneak)
     send_to_char(ch, "You have no idea how to do that.\r\n");
     return;
   }
-  send_to_char(ch, "Okay, you'll try to move silently for a while.\r\n");
+  send_to_char(ch, "You begin to sneak.\r\n");
   if (AFF_FLAGGED(ch, AFF_SNEAK))
     affect_from_char(ch, SKILL_SNEAK);
 
@@ -158,7 +158,7 @@ ACMD(do_steal)
     return;
   }
   if (ROOM_FLAGGED(IN_ROOM(ch), ROOM_PEACEFUL)) {
-    send_to_char(ch, "This room just has such a peaceful, easy feeling...\r\n");
+    send_to_char(ch, "This room just has such a peaceful, easy feeling.\r\n");
     return;
   }
 
@@ -168,7 +168,7 @@ ACMD(do_steal)
     send_to_char(ch, "Steal what from who?\r\n");
     return;
   } else if (vict == ch) {
-    send_to_char(ch, "Come on now, that's rather stupid!\r\n");
+    send_to_char(ch, "You cannot steal from yourself.\r\n");
     return;
   }
 
@@ -204,7 +204,7 @@ ACMD(do_steal)
 	return;
       } else {			/* It is equipment */
 	if ((GET_POS(vict) > POS_STUNNED)) {
-	  send_to_char(ch, "Steal the equipment now?  Impossible!\r\n");
+	  send_to_char(ch, "You cannot steal the equipment.\r\n");
 	  return;
 	} else {
           if (!give_otrigger(obj, vict, ch) ||
@@ -256,11 +256,11 @@ ACMD(do_steal)
 		increase_gold(ch, gold);
 		decrease_gold(vict, gold);
         if (gold > 1)
-	  send_to_char(ch, "Bingo!  You got %d gold coins.\r\n", gold);
+	  send_to_char(ch, "You got %d gold coins.\r\n", gold);
 	else
-	  send_to_char(ch, "You manage to swipe a solitary gold coin.\r\n");
+	  send_to_char(ch, "You manage to swipe a single gold coin.\r\n");
       } else {
-	send_to_char(ch, "You couldn't get any gold...\r\n");
+	send_to_char(ch, "You couldn't get any gold.\r\n");
       }
     }
   }
@@ -307,7 +307,7 @@ ACMD(do_title)
   if (IS_NPC(ch))
     send_to_char(ch, "Your title is fine... go away.\r\n");
   else if (PLR_FLAGGED(ch, PLR_NOTITLE))
-    send_to_char(ch, "You can't title yourself -- you shouldn't have abused it!\r\n");
+    send_to_char(ch, "You can't title yourself.\r\n");
   else if (strstr(argument, "(") || strstr(argument, ")"))
     send_to_char(ch, "Titles can't contain the ( or ) characters.\r\n");
   else if (strlen(argument) > MAX_TITLE_LENGTH)
@@ -397,10 +397,10 @@ ACMD(do_group)
       send_to_char(ch, "Join who?\r\n");
       return;
     } else if (vict == ch) {
-      send_to_char(ch, "That would be one lonely grouping.\r\n");
+      send_to_char(ch, "You cannot make a group with yourself\r\n");
       return;
     } else if (GROUP(ch)) {
-      send_to_char(ch, "But you are already part of a group.\r\n");
+      send_to_char(ch, "You are already part of a group.\r\n");
       return;
     } else if (!GROUP(vict)) {
       send_to_char(ch, "They are not a part of a group!\r\n");
@@ -416,7 +416,7 @@ ACMD(do_group)
       send_to_char(ch, "Kick out who?\r\n");
       return;
     } else if (vict == ch) {
-      send_to_char(ch, "There are easier ways to leave the group.\r\n");
+      send_to_char(ch, "You cannot kick yourself.\r\n");
       return;
     } else if (!GROUP(ch) ) {
       send_to_char(ch, "But you are not part of a group.\r\n");
@@ -433,7 +433,7 @@ ACMD(do_group)
     leave_group(vict);
   } else if (is_abbrev(buf, "leave")) {
     if (!GROUP(ch)) {
-      send_to_char(ch, "But you aren't apart of a group!\r\n");
+      send_to_char(ch, "You aren't apart of a group!\r\n");
       return;
     }
 		
@@ -441,7 +441,7 @@ ACMD(do_group)
   } else if (is_abbrev(buf, "option")) {
     skip_spaces(&argument);
     if (!GROUP(ch)) {
-      send_to_char(ch, "But you aren't part of a group!\r\n");
+      send_to_char(ch, "You aren't part of a group!\r\n");
       return;
     } else if (GROUP_LEADER(GROUP(ch)) != ch) {
       send_to_char(ch, "Only the group leader can adjust the group flags.\r\n");
@@ -466,7 +466,7 @@ ACMD(do_report)
   struct group_data *group;
 
   if ((group = GROUP(ch)) == NULL) {
-    send_to_char(ch, "But you are not a member of any group!\r\n");
+    send_to_char(ch, "You are not a member of any group!\r\n");
     return;
   }
 
@@ -496,7 +496,7 @@ ACMD(do_split)
       return;
     }
     if (amount > GET_GOLD(ch)) {
-      send_to_char(ch, "You don't seem to have that much gold to split.\r\n");
+      send_to_char(ch, "You don't have that much gold to split.\r\n");
       return;
     }
     
@@ -776,7 +776,7 @@ ACMD(do_gen_tog)
     break;
   case SCMD_BUILDWALK:
     if (GET_LEVEL(ch) < LVL_BUILDER) {
-      send_to_char(ch, "Builders only, sorry.\r\n");
+      send_to_char(ch, "Builders only.\r\n");
       return;
     }
     result = PRF_TOG_CHK(ch, PRF_BUILDWALK);
@@ -871,7 +871,7 @@ void show_happyhour(struct char_data *ch)
   }
   else
   {
-      send_to_char(ch, "Sorry, there is currently no happy hour!\r\n");
+      send_to_char(ch, "There is currently no happy hour.\r\n");
   }
 }
 
