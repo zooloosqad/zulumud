@@ -345,9 +345,9 @@ int perform_move(struct char_data *ch, int dir, int need_specials_check)
   if (ch == NULL || dir < 0 || dir >= NUM_OF_DIRS || FIGHTING(ch))
     return (0);
   else if (!CONFIG_DIAGONAL_DIRS && IS_DIAGONAL(dir))
-    send_to_char(ch, "Alas, you cannot go that way...\r\n");
+    send_to_char(ch, "You cannot go that way.\r\n");
   else if ((!EXIT(ch, dir) && !buildwalk(ch, dir)) || EXIT(ch, dir)->to_room == NOWHERE)
-    send_to_char(ch, "Alas, you cannot go that way...\r\n");
+    send_to_char(ch, "You cannot go that way...\r\n");
   else if (EXIT_FLAGGED(EXIT(ch, dir), EX_CLOSED) && (GET_LEVEL(ch) < LVL_IMMORT || (!IS_NPC(ch) && !PRF_FLAGGED(ch, PRF_NOHASSLE)))) {
     if (EXIT(ch, dir)->keyword)
       send_to_char(ch, "The %s seems to be closed.\r\n", fname(EXIT(ch, dir)->keyword));
@@ -537,28 +537,28 @@ static void do_doorcmd(struct char_data *ch, struct obj_data *obj, int door, int
     OPEN_DOOR(IN_ROOM(ch), obj, door);
     if (back)
       OPEN_DOOR(other_room, obj, rev_dir[door]);
-    send_to_char(ch, "%s", CONFIG_OK);
+    send_to_char(ch, "You open the door.");
     break;
 
   case SCMD_CLOSE:
     CLOSE_DOOR(IN_ROOM(ch), obj, door);
     if (back)
       CLOSE_DOOR(other_room, obj, rev_dir[door]);
-    send_to_char(ch, "%s", CONFIG_OK);
+    send_to_char(ch, "You close the door.");
     break;
 
   case SCMD_LOCK:
     LOCK_DOOR(IN_ROOM(ch), obj, door);
     if (back)
       LOCK_DOOR(other_room, obj, rev_dir[door]);
-    send_to_char(ch, "*Click*\r\n");
+    send_to_char(ch, "You lock the door. It clicks.\r\n");
     break;
 
   case SCMD_UNLOCK:
     UNLOCK_DOOR(IN_ROOM(ch), obj, door);
     if (back)
       UNLOCK_DOOR(other_room, obj, rev_dir[door]);
-    send_to_char(ch, "*Click*\r\n");
+    send_to_char(ch, "You unlock the door. It clicks.\r\n");
     break;
 
   case SCMD_PICK:
@@ -647,9 +647,9 @@ ACMD(do_gen_door)
     if (!(DOOR_IS_OPENABLE(ch, obj, door)))
       send_to_char(ch, "You can't %s that!\r\n", cmd_door[subcmd]);
     else if (!DOOR_IS_OPEN(ch, obj, door) && IS_SET(flags_door[subcmd], NEED_OPEN))
-      send_to_char(ch, "But it's already closed!\r\n");
+      send_to_char(ch, "It's already closed.\r\n");
     else if (!DOOR_IS_CLOSED(ch, obj, door) && IS_SET(flags_door[subcmd], NEED_CLOSED))
-      send_to_char(ch, "But it's currently open!\r\n");
+      send_to_char(ch, "It's currently open.\r\n");
     else if (!(DOOR_IS_LOCKED(ch, obj, door)) && IS_SET(flags_door[subcmd], NEED_LOCKED))
       send_to_char(ch, "It wasn't locked, after all.\r\n");
     else if (!(DOOR_IS_UNLOCKED(ch, obj, door)) && IS_SET(flags_door[subcmd], NEED_UNLOCKED) && ((!IS_NPC(ch) && PRF_FLAGGED(ch, PRF_AUTOKEY))) && (has_key(ch, keynum)) )
@@ -711,7 +711,7 @@ ACMD(do_leave)
   int door;
 
   if (OUTSIDE(ch))
-    send_to_char(ch, "You are outside.. where do you want to go?\r\n");
+    send_to_char(ch, "You are outside.\r\n");
   else {
     for (door = 0; door < DIR_COUNT; door++)
       if (EXIT(ch, door))
