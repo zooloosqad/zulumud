@@ -2114,7 +2114,7 @@ ACMD(do_force)
     else if (!IS_NPC(vict) && GET_LEVEL(ch) <= GET_LEVEL(vict))
       send_to_char(ch, "No, no, no!\r\n");
     else {
-      send_to_char(ch, "%s", CONFIG_OK);
+      send_to_char(ch, "You force %s to '%s.'",GET_NAME(vict), to_force);
       act(buf1, TRUE, ch, NULL, vict, TO_VICT);
       mudlog(CMP, MAX(LVL_GOD, GET_INVIS_LEV(ch)), TRUE, "(GC) %s forced %s to %s", GET_NAME(ch), GET_NAME(vict), to_force);
       command_interpreter(vict, to_force);
