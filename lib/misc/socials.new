@@ -1,48 +1,3 @@
-~... ... 0 5 0 0
-You're speechless.
-$n is speechless.
-You're speechless about what $E just did!
-$n is speechless about what $N just did!
-$n is speechless at what you just did!
-Well they're not here, eh who cares? You were speechless anyway!
-You're speechless about what you just did!
-$n is speechless about what $e just did!
-You're speechless about $S $t.
-$n is speechless about $N's $t.
-$n is speechless about your $t.
-#
-#
-
-~abc abc 1 1 0 0
-You start to sing, "ABCD LSD, Gummy Bears are chasing me."
-$n starts to sing, "ABCD LSD, Gummy Bears are chasing me."
-You look at $N. "Are the gummy bears chasing you?"
-$n looks at $N and says, "Are the gummy bears chasing you?"
-$n looks at you and says, "Are the gummy bears chasing you?" You see a small gummy bear jumping up and down on their shoulder.
-You must be crazy... you can't see the gummy bears!
-You look behind you. You look back forward, worried. "ABCD LSD, Gummy Bears are chasing me."
-$n looks behind themselves. They look forward quickly, worried. "ABCD LSD, Gummy Bears are chasing me" escapes their lips.
-#
-#
-#
-#
-#
-
-~abrac abrac 0 8 8 0
-Abra Abra Cadabra!
-$n goes 'Abra Cadabra!'
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-
 ~accuse accuse 0 5 0 0
 Accuse who?
 $n accuses everyone.
@@ -57,66 +12,6 @@ $n looks accusingly at $N's $t.
 $n looks at your $t accusingly.
 You look accusingly at $p.
 $n looks accusingly at $p.
-
-~ack ack 0 5 0 0
-ACK!
-$n goes ACK!!
-You look at $M and go ACK!
-$n looks at $N and goes ACK!
-$n looks at you and goes ACK!
-You look for someone to go ACK! at.
-You look at yourself and go ACK!
-$n looks at $mself and goes ACK!
-You look at $S $t and go ACK!
-$n looks atat $N's $t and goes ACK!
-$n looks at your $t and goes ACK!
-You look at $p and go ACK!
-$n looks at $p and goes ACK!
-
-~adieu adieu 0 5 0 0
-You bid adieu to the world.
-$n bids adieu to this world.
-You bid $M a fond adieu.
-$n bids $N a fond adieu.
-$n bids you a fond adieu.
-They must have already left.
-You bid yourself a fond adieu.
-$n bids $mself a fond adieu.
-You look at $S $t and say adieu.
-$n looks at $N's $t and bids it adieu.
-$n looks at your $t and bids it adieu.
-You look at $p and bids it adieu.
-$n looks at $p and bids it adieu.
-
-~admire admire 0 5 0 0
-Who do you wish to admire in this Cruel World?
-$n admires the Cruel World $e has become part of.
-You look admiringly at $M.
-$n looks admiringly at $N.
-$n looks admiringly at you.
-Your idol seems not to be here.
-You admire yourself.
-$n admires $mself.
-You look admiringly at $S $t.
-$n looks admiringly at $N's $t.
-$n looks at your $t admiringly.
-You look admiringly at $p.
-$n looks admiringly at $p.
-
-~adoring adoring 0 8 8 0
-You look around with adoring eyes.
-$n looks around with adoring eyes.
-You look at $N with adoring eyes.
-$n looks at $N with big, adoring eyes.
-$n is looking at you with big, adoring eyes.
-You can't find that person!
-#
-#
-#
-#
-#
-#
-#
 
 ~agree agree 0 5 0 0
 You nod in agreement.
@@ -921,7 +816,7 @@ $n farts in $N's general direction.
 $n farts in your general direction.
 Who?
 You fart delicately.
-$n farts farts delicately.
+$n farts delicately.
 You fart on $S $t.
 $n farts on $N's $t.
 $n farts on your $t.
@@ -929,14 +824,14 @@ You fart on $p.
 $n farts on $p.
 
 ~flex flex 0 5 0 0
-You flex.
+You flex your impressive and obviously cool muscles.
 $n flexes $s impressive and obviously cool muscles.
 You flex your muscles at $M.
 $n flexes $s muscles at $N.
 $n flexes $s muscles at you.
 Who?
-You flex for yourself.
-$n flexes $s massive body.
+You flex at yourself.
+$n flexes at $mself.
 You flex $S $t.
 $n flexes $N's $t.
 $n flexes your $t.
