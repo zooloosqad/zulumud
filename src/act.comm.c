@@ -149,7 +149,7 @@ ACMD(do_tell)
   half_chop(argument, buf, buf2);
 
   if (!*buf || !*buf2)
-    send_to_char(ch, "Who do you wish to tell what??\r\n");
+    send_to_char(ch, "Who do you wish to tell what?\r\n");
   else if (!strcmp(buf, "m-w")) {
 #ifdef CIRCLE_WINDOWS
    /* getpid() is not portable */
@@ -205,7 +205,7 @@ ACMD(do_reply)
   skip_spaces(&argument);
 
   if (GET_LAST_TELL(ch) == NOBODY)
-    send_to_char(ch, "You have nobody to reply to!\r\n");
+    send_to_char(ch, "You have nobody to reply to.\r\n");
   else if (!*argument)
     send_to_char(ch, "What is your reply?\r\n");
   else {
@@ -257,11 +257,11 @@ ACMD(do_spec_comm)
   half_chop(argument, buf, buf2);
 
   if (!*buf || !*buf2)
-    send_to_char(ch, "Whom do you want to %s.. and what??\r\n", action_sing);
+    send_to_char(ch, "Whom do you want to %s and what?\r\n", action_sing);
   else if (!(vict = get_char_vis(ch, buf, NULL, FIND_CHAR_ROOM)))
     send_to_char(ch, "%s", CONFIG_NOPERSON);
   else if (vict == ch)
-    send_to_char(ch, "You can't get your mouth close enough to your ear...\r\n");
+    send_to_char(ch, "You can't get your mouth close enough to your ear.\r\n");
   else {
     char buf1[MAX_STRING_LENGTH];
 
