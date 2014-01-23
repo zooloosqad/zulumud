@@ -1,0 +1,9 @@
+143a144,147
+> /* Removing shop hours. Nobody likes them, and they're hilarious archiac 
+>    and mostly only kept around by old guard RPers. */ 
+> 
+> /*
+159a164,166
+> */
+> 
+>   return (TRUE);
