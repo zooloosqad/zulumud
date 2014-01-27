@@ -1471,15 +1471,15 @@ ACMD(do_advance)
   }
 
   if (GET_LEVEL(ch) <= GET_LEVEL(victim)) {
-    send_to_char(ch, "Maybe that's not such a great idea.\r\n");
+    send_to_char(ch, "Your level lower than theirs.\r\n");
     return;
   }
   if (IS_NPC(victim)) {
-    send_to_char(ch, "NO!  Not on NPC's.\r\n");
+    send_to_char(ch, "This command does not work on NPCs.\r\n");
     return;
   }
   if (!*level || (newlevel = atoi(level)) <= 0) {
-    send_to_char(ch, "That's not a level!\r\n");
+    send_to_char(ch, "That is not a level.\r\n");
     return;
   }
   if (newlevel > LVL_IMPL) {
@@ -1487,7 +1487,7 @@ ACMD(do_advance)
     return;
   }
   if (newlevel > GET_LEVEL(ch)) {
-    send_to_char(ch, "Yeah, right.\r\n");
+    send_to_char(ch, "That level is higher than yours.\r\n");
     return;
   }
   if (newlevel == GET_LEVEL(victim)) {
@@ -1509,7 +1509,7 @@ ACMD(do_advance)
       "You feel slightly different.", FALSE, ch, 0, victim, TO_VICT);
 }
 
-  send_to_char(ch, "%s", CONFIG_OK);
+  send_to_char(ch, "You change %s's level to %s.\r\n", GET_NAME(victim), newlevel);
 
   if (newlevel < oldlevel)
     log("(GC) %s demoted %s from level %d to %d.",
