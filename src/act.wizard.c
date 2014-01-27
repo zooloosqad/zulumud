@@ -1598,7 +1598,7 @@ ACMD(do_restore)
     }
     update_pos(vict);
     affect_total(vict);
-    send_to_char(ch, "You restore %s.", GET_NAME(vict));
+    send_to_char(ch, "You restore %s.\r\n", GET_NAME(vict));
     act("You have been fully healed by $N!", FALSE, vict, 0, ch, TO_CHAR);
     mudlog(NRM, MAX(LVL_GOD, GET_INVIS_LEV(ch)), TRUE, "(GC) %s restored %s.",GET_NAME(ch), GET_NAME(vict));
   }
