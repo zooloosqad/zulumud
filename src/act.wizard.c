@@ -1556,7 +1556,7 @@ ACMD(do_restore)
     send_to_char(ch, "Whom do you wish to restore?\r\n");
    else if (is_abbrev(buf, "all"))
    {
-    mudlog(NRM, MAX(LVL_GOD, GET_INVIS_LEV(ch)), TRUE, "(GC) %s restored all",GET_NAME(ch));
+    mudlog(NRM, MAX(LVL_GOD, GET_INVIS_LEV(ch)), TRUE, "(GC) %s restored all.",GET_NAME(ch));
 
      for (j = descriptor_list; j; j = j->next)
     {
@@ -1598,8 +1598,9 @@ ACMD(do_restore)
     }
     update_pos(vict);
     affect_total(vict);
-    send_to_char(ch, "%s", CONFIG_OK);
+    send_to_char(ch, "You restore %s.", GET_NAME(vict));
     act("You have been fully healed by $N!", FALSE, vict, 0, ch, TO_CHAR);
+    mudlog(NRM, MAX(LVL_GOD, GET_INVIS_LEV(ch)), TRUE, "(GC) %s restored %s.",GET_NAME(ch), GET_NAME(vict));
   }
 }
 
@@ -2112,11 +2113,11 @@ ACMD(do_force)
     else if (!IS_NPC(vict) && GET_LEVEL(ch) < LVL_GOD)
       send_to_char(ch, "You cannot force players.\r\n");
     else if (!IS_NPC(vict) && GET_LEVEL(ch) <= GET_LEVEL(vict))
-      send_to_char(ch, "No, no, no!\r\n");
+      send_to_char(ch, "You cannot force them.\r\n");
     else {
-      send_to_char(ch, "You force %s to '%s.'",GET_NAME(vict), to_force);
+      send_to_char(ch, "You force %s to '%s.'\r\n",GET_NAME(vict), to_force);
       act(buf1, TRUE, ch, NULL, vict, TO_VICT);
-      mudlog(CMP, MAX(LVL_GOD, GET_INVIS_LEV(ch)), TRUE, "(GC) %s forced %s to %s", GET_NAME(ch), GET_NAME(vict), to_force);
+      mudlog(CMP, MAX(LVL_GOD, GET_INVIS_LEV(ch)), TRUE, "(GC) %s forced %s to %s.", GET_NAME(ch), GET_NAME(vict), to_force);
       command_interpreter(vict, to_force);
     }
   } else if (!str_cmp("room", arg)) {

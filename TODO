@@ -1,0 +1,2 @@
+Thu Jan 23 17:36:00 EST 2014
+Was going to add [net] tags to each network that one can speak in (gossip, holler [going to change this to World later], etc) but the do_gen_comm function in act.comm.c is clever in its parsing and eliminates the need for each type to have its own output. However, this means I'll need to add in a switch for each output or prepend it to get my desired result. - H
